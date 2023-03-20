@@ -1,0 +1,27 @@
+<h1>Hello Programmer, Your message is <%= @msg %></h1>
+<.my_component my_name="Sabit" />
+
+<%= if 1==2 do %>
+    <p>This is true</p>
+<% else %>
+    <p>This is false</p>
+<% end %>
+
+<table>
+    <tr>
+        <td>Number</td>
+        <td>Multiply x 2</td>
+    </tr>
+    <%= for number <- 1..10 do %>
+    <tr>
+        <td><%= number %></td>
+        <td><%= number*2 %></td>
+    </tr>
+    <% end %>
+</table>
+
+<%= raw "<b>Tessst</b>" %>
+
+<h1 class={@msg}>
+    This is class example
+</h1>
