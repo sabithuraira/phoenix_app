@@ -5,7 +5,7 @@ config :my_app, MyApp.Repo,
   username: "root",
   password: "",
   hostname: "localhost",
-  database: "hre2",
+  database: "phenix_app",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
