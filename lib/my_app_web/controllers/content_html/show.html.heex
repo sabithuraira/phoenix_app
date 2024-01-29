@@ -1,0 +1,17 @@
+<.header>
+  Content <%= @content.id %>
+  <:subtitle>This is a content record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/contents/#{@content}/edit"}>
+      <.button>Edit content</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @content.title %></:item>
+  <:item title="Body"><%= @content.body %></:item>
+  <:item title="Views"><%= @content.views %></:item>
+</.list>
+
+<.back navigate={~p"/contents"}>Back to contents</.back>

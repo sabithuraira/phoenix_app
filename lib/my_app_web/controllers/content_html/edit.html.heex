@@ -1,0 +1,8 @@
+<.header>
+  Edit Content <%= @content.id %>
+  <:subtitle>Use this form to manage content records in your database.</:subtitle>
+</.header>
+
+<.content_form changeset={@changeset} action={~p"/contents/#{@content}"} />
+
+<.back navigate={~p"/contents"}>Back to contents</.back>
