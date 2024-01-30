@@ -10,4 +10,9 @@ defmodule MyAppWeb.ContentHTML do
   attr :action, :string, required: true
 
   def content_form(assigns)
+
+  def list_category_opts(chageset) do
+    for cat <- MyApp.Blog.list_categories,
+      do: [key: cat.title, value: cat.id]
+  end
 end

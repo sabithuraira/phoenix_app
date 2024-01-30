@@ -11,6 +11,11 @@
   <:col :let={content} label="Title"><%= content.title %></:col>
   <:col :let={content} label="Body"><%= content.body %></:col>
   <:col :let={content} label="Views"><%= content.views %></:col>
+  <:col :let={content} label="Category">
+    <%= if content.category do %>
+      <%= content.category.title %>
+    <% end %>
+  </:col>
   <:action :let={content}>
     <div class="sr-only">
       <.link navigate={~p"/contents/#{content}"}>Show</.link>

@@ -12,6 +12,11 @@
   <:item title="Title"><%= @content.title %></:item>
   <:item title="Body"><%= @content.body %></:item>
   <:item title="Views"><%= @content.views %></:item>
+  <:item title="Category">
+    <%= if @content.category do %>
+      <%= @content.category.title %>
+    <% end %>
+  </:item>
 </.list>
 
 <.back navigate={~p"/contents"}>Back to contents</.back>

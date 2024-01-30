@@ -4,6 +4,12 @@
   </.error>
   <.input field={f[:title]} type="text" label="Title" />
   <.input field={f[:body]} type="text" label="Body" />
+
+
+  <.input field={f[:category_id]} type="select" 
+    options={list_category_opts(@changeset)}
+    label="Choose Category" />
+
   <:actions>
     <.button>Save Content</.button>
   </:actions>
