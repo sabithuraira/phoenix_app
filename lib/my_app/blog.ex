@@ -7,6 +7,7 @@ defmodule MyApp.Blog do
   alias MyApp.Repo
 
   alias MyApp.Blog.Content
+  alias MyApp.Blog.Tag
 
   @doc """
   Returns the list of contents.
@@ -39,6 +40,7 @@ defmodule MyApp.Blog do
   def get_content!(id) do
     Repo.get!(Content, id)
       |> Repo.preload(:category)
+      |> Repo.preload(:tags)
   end
 
   def auto_add_views(%Content{views: curr_views}=page) do
@@ -61,7 +63,8 @@ defmodule MyApp.Blog do
   """
   def create_content(attrs \\ %{}) do
     %Content{}
-    |> Content.changeset(attrs)
+    # |> Content.changeset(attrs)
+    |> change_content(attrs)
     |> Ecto.Changeset.put_change(:views, 0)
     |> Repo.insert()
   end
@@ -80,7 +83,8 @@ defmodule MyApp.Blog do
   """
   def update_content(%Content{} = content, attrs) do
     content
-    |> Content.changeset(attrs)
+    # |> Content.changeset(attrs)
+    |> change_content(attrs)
     |> Repo.update()
   end
 
@@ -110,8 +114,20 @@ defmodule MyApp.Blog do
 
   """
   def change_content(%Content{} = content, attrs \\ %{}) do
-    Content.changeset(content, attrs)
+    # Content.changeset(content, attrs)
+    tags = list_tags_by_id(attrs["tag_ids"])
+    content
+      |> Repo.preload(:tags)
+      |> Content.changeset(attrs)
+      |> Ecto.Changeset.put_assoc(:tags, tags)
   end
+
+  def list_tags_by_id(nil), do: []
+
+  def list_tags_by_id(tag_ids) do
+    Repo.all(from t in Tag, where: t.id in ^tag_ids)
+  end
+
 
   alias MyApp.Blog.Category
 
@@ -207,5 +223,100 @@ defmodule MyApp.Blog do
   """
   def change_category(%Category{} = category, attrs \\ %{}) do
     Category.changeset(category, attrs)
+  end
+
+
+  @doc """
+  Returns the list of tags.
+
+  ## Examples
+
+      iex> list_tags()
+      [%Tag{}, ...]
+
+  """
+  def list_tags do
+    Repo.all(Tag)
+  end
+
+  @doc """
+  Gets a single tag.
+
+  Raises `Ecto.NoResultsError` if the Tag does not exist.
+
+  ## Examples
+
+      iex> get_tag!(123)
+      %Tag{}
+
+      iex> get_tag!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_tag!(id), do: Repo.get!(Tag, id)
+
+  @doc """
+  Creates a tag.
+
+  ## Examples
+
+      iex> create_tag(%{field: value})
+      {:ok, %Tag{}}
+
+      iex> create_tag(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_tag(attrs \\ %{}) do
+    %Tag{}
+    |> Tag.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a tag.
+
+  ## Examples
+
+      iex> update_tag(tag, %{field: new_value})
+      {:ok, %Tag{}}
+
+      iex> update_tag(tag, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_tag(%Tag{} = tag, attrs) do
+    tag
+    |> Tag.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a tag.
+
+  ## Examples
+
+      iex> delete_tag(tag)
+      {:ok, %Tag{}}
+
+      iex> delete_tag(tag)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_tag(%Tag{} = tag) do
+    Repo.delete(tag)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking tag changes.
+
+  ## Examples
+
+      iex> change_tag(tag)
+      %Ecto.Changeset{data: %Tag{}}
+
+  """
+  def change_tag(%Tag{} = tag, attrs \\ %{}) do
+    Tag.changeset(tag, attrs)
   end
 end

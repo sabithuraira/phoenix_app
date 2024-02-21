@@ -17,6 +17,14 @@
       <%= @content.category.title %>
     <% end %>
   </:item>
+
+
+  <:item title="Tag">
+    <%= for tag <- @content.tags do %>
+      <%= tag.title %>
+      <br/>
+    <% end %>
+  </:item>
 </.list>
 
 <.back navigate={~p"/contents"}>Back to contents</.back>

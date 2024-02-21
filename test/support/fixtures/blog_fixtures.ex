@@ -38,4 +38,23 @@ defmodule MyApp.BlogFixtures do
 
     category
   end
+
+  @doc """
+  Generate a unique tag title.
+  """
+  def unique_tag_title, do: "some title#{System.unique_integer([:positive])}"
+
+  @doc """
+  Generate a tag.
+  """
+  def tag_fixture(attrs \\ %{}) do
+    {:ok, tag} =
+      attrs
+      |> Enum.into(%{
+        title: unique_tag_title()
+      })
+      |> MyApp.Blog.create_tag()
+
+    tag
+  end
 end

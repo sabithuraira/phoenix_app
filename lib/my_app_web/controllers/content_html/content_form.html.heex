@@ -10,6 +10,11 @@
     options={list_category_opts(@changeset)}
     label="Choose Category" />
 
+
+  <.input field={f[:tag_ids]} type="select" multiple={true}
+  options={list_tags_opts(@changeset)}
+  label="Choose Tag" />
+
   <:actions>
     <.button>Save Content</.button>
   </:actions>

@@ -9,6 +9,10 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-for title <- ["Sport", "Business", "Fashion", "Book"] do
-  {:ok, _} = MyApp.Blog.create_category(%{title: title})
+# for title <- ["Sport", "Business", "Fashion", "Book"] do
+#   {:ok, _} = MyApp.Blog.create_category(%{title: title})
+# end
+
+for title <- ["Tag1", "Tag2", "Tag3", "Tag4"] do
+  {:ok, _} = MyApp.Blog.create_tag(%{title: title})
 end

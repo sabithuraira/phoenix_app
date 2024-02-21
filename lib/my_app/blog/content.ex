@@ -3,6 +3,7 @@ defmodule MyApp.Blog.Content do
   import Ecto.Changeset
 
   alias MyApp.Blog.Category
+  alias MyApp.Blog.Tag
 
   schema "contents" do
     field :body, :string
@@ -10,6 +11,7 @@ defmodule MyApp.Blog.Content do
     field :views, :integer
 
     belongs_to :category, Category
+    many_to_many :tags, Tag, join_through: "content_tags", on_replace: :delete
 
     timestamps()
   end
