@@ -4,6 +4,8 @@ defmodule MyAppWeb.ContentController do
   alias MyApp.Blog
   alias MyApp.Blog.Content
 
+  action_fallback MyAppWeb.NewFallbackController
+
   def index(conn, _params) do
     contents = Blog.list_contents()
     render(conn, :index, contents: contents)
@@ -27,14 +29,20 @@ defmodule MyAppWeb.ContentController do
   end
 
   def show(conn, %{"id" => id}) do
-    content = Blog.get_content!(id)
-    content
-      |> Blog.auto_add_views()
-    render(conn, :show, content: content)
+    # content = Blog.get_content(id)
+    # content
+    #   |> Blog.auto_add_views()
+    # render(conn, :show, content: content)
+
+    with %Content{} = content <- Blog.get_content(id) do
+      content
+        |> Blog.auto_add_views()
+      render(conn, :show, content: content)
+    end
   end
 
   def edit(conn, %{"id" => id}) do
-    content = Blog.get_content!(id)
+    content = Blog.get_content(id)
     changeset = Blog.change_content(content)
     render(conn, :edit, content: content, changeset: changeset)
   end

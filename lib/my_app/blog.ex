@@ -37,8 +37,8 @@ defmodule MyApp.Blog do
       ** (Ecto.NoResultsError)
 
   """
-  def get_content!(id) do
-    Repo.get!(Content, id)
+  def get_content(id) do
+    Repo.get(Content, id)
       |> Repo.preload(:category)
       |> Repo.preload(:tags)
   end
