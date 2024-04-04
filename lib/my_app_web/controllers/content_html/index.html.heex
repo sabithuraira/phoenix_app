@@ -1,9 +1,13 @@
 <.header>
   Listing Contents
   <:actions>
-    <.link href={~p"/contents/new"}>
-      <.button>New Content</.button>
-    </.link>
+    <%= if @current_user do %>
+      <.link href={~p"/contents/new"}>
+        <.button>New Content</.button>
+      </.link>
+    <% else %>
+        You are not login
+    <% end %>
   </:actions>
 </.header>
 
