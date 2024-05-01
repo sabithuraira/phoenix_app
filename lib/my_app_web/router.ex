@@ -21,6 +21,7 @@ defmodule MyAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/my_channel", PageController, :my_channel
     get "/hello", HelloController, :index
     get "/hello/:msg", HelloController, :show
 

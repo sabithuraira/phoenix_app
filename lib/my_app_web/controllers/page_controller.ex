@@ -6,4 +6,8 @@ defmodule MyAppWeb.PageController do
     # so skip the default app layout.
     render(conn, :home, layout: false)
   end
+
+  def my_channel(conn, _params) do
+    render(conn, :my_channel, layout: false)
+  end
 end
